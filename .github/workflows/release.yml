@@ -1,0 +1,23 @@
+name: Publish integration release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    name: Validate deployed version and publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: python scripts/validate.py --release
+      - run: python -m unittest discover -s tests
+      - run: python scripts/release.py
+        env:
+          GH_TOKEN: ${{ github.token }}

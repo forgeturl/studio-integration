@@ -1,0 +1,12 @@
+{
+  "input_type": "script",
+  "script_mode": "ai",
+  "text": "介绍人工智能如何帮助日常学习。",
+  "mode": "single",
+  "aspect_ratio": "9:16",
+  "style_id": "clean",
+  "voice_ids": ["<可用音色ID>"],
+  "web_search": {"enabled": false},
+  "scene_strategy": {"mode": "auto", "min": 12, "max": 20},
+  "cover_ratios": ["16:9"]
+}

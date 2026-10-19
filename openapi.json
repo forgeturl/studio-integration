@@ -1,0 +1,3454 @@
+{
+  "components": {
+    "schemas": {
+      "Artifact": {
+        "additionalProperties": true,
+        "properties": {
+          "expires_at": {
+            "title": "Expires At",
+            "type": "integer"
+          },
+          "filename": {
+            "title": "Filename",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "filename",
+          "expires_at"
+        ],
+        "title": "Artifact",
+        "type": "object"
+      },
+      "Catalog": {
+        "additionalProperties": true,
+        "properties": {
+          "available": {
+            "title": "Available",
+            "type": "boolean"
+          },
+          "development_only": {
+            "title": "Development Only",
+            "type": "boolean"
+          },
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "image_models": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Image Models",
+            "type": "array"
+          },
+          "script_generation": {
+            "additionalProperties": true,
+            "title": "Script Generation",
+            "type": "object"
+          },
+          "styles": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Styles",
+            "type": "array"
+          },
+          "voices": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Voices",
+            "type": "array"
+          }
+        },
+        "required": [
+          "enabled",
+          "available",
+          "development_only",
+          "script_generation",
+          "voices",
+          "styles",
+          "image_models"
+        ],
+        "title": "Catalog",
+        "type": "object"
+      },
+      "CoverEdit": {
+        "additionalProperties": false,
+        "properties": {
+          "prompt": {
+            "maxLength": 20000,
+            "minLength": 1,
+            "title": "Prompt",
+            "type": "string"
+          },
+          "ratio": {
+            "enum": [
+              "16:9",
+              "4:3",
+              "3:4"
+            ],
+            "title": "Ratio",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ratio",
+          "prompt"
+        ],
+        "title": "CoverEdit",
+        "type": "object"
+      },
+      "Download": {
+        "additionalProperties": true,
+        "properties": {
+          "expires_at": {
+            "title": "Expires At",
+            "type": "integer"
+          },
+          "filename": {
+            "title": "Filename",
+            "type": "string"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "expires_at",
+          "filename",
+          "source"
+        ],
+        "title": "Download",
+        "type": "object"
+      },
+      "Error": {
+        "properties": {
+          "detail": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            ],
+            "title": "Detail"
+          }
+        },
+        "required": [
+          "detail"
+        ],
+        "title": "Error",
+        "type": "object"
+      },
+      "ErrorDetail": {
+        "additionalProperties": true,
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Message"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "title": "ErrorDetail",
+        "type": "object"
+      },
+      "Estimate": {
+        "additionalProperties": true,
+        "properties": {
+          "development_only": {
+            "title": "Development Only",
+            "type": "boolean"
+          },
+          "estimated_points": {
+            "minimum": 0,
+            "title": "Estimated Points",
+            "type": "integer"
+          },
+          "max_points": {
+            "minimum": 0,
+            "title": "Max Points",
+            "type": "integer"
+          },
+          "price_version": {
+            "title": "Price Version",
+            "type": "string"
+          },
+          "writing_template_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Writing Template Version"
+          }
+        },
+        "required": [
+          "estimated_points",
+          "max_points",
+          "price_version",
+          "development_only"
+        ],
+        "title": "Estimate",
+        "type": "object"
+      },
+      "FundingRequired": {
+        "additionalProperties": true,
+        "properties": {
+          "additional_points": {
+            "title": "Additional Points",
+            "type": "integer"
+          },
+          "available_points": {
+            "title": "Available Points",
+            "type": "integer"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "additional_points",
+          "available_points",
+          "reason"
+        ],
+        "title": "FundingRequired",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "Ledger": {
+        "additionalProperties": true,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/LedgerItem"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "title": "Ledger",
+        "type": "object"
+      },
+      "LedgerItem": {
+        "additionalProperties": true,
+        "properties": {
+          "available_after": {
+            "title": "Available After",
+            "type": "integer"
+          },
+          "available_delta": {
+            "title": "Available Delta",
+            "type": "integer"
+          },
+          "created": {
+            "title": "Created",
+            "type": "integer"
+          },
+          "frozen_after": {
+            "title": "Frozen After",
+            "type": "integer"
+          },
+          "frozen_delta": {
+            "title": "Frozen Delta",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "created",
+          "available_delta",
+          "frozen_delta",
+          "available_after",
+          "frozen_after"
+        ],
+        "title": "LedgerItem",
+        "type": "object"
+      },
+      "ProductionInput": {
+        "additionalProperties": false,
+        "properties": {
+          "bgm_enabled": {
+            "default": true,
+            "title": "Bgm Enabled",
+            "type": "boolean"
+          },
+          "channel_name": {
+            "default": "",
+            "maxLength": 30,
+            "title": "Channel Name",
+            "type": "string"
+          },
+          "channel_rendering": {
+            "const": "image",
+            "default": "image",
+            "title": "Channel Rendering",
+            "type": "string"
+          },
+          "subtitle_size": {
+            "default": "standard",
+            "enum": [
+              "standard",
+              "large"
+            ],
+            "title": "Subtitle Size",
+            "type": "string"
+          },
+          "version": {
+            "const": 1,
+            "default": 1,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "title": "ProductionInput",
+        "type": "object"
+      },
+      "Quote": {
+        "additionalProperties": true,
+        "properties": {
+          "billing_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Billing Mode"
+          },
+          "development_only": {
+            "title": "Development Only",
+            "type": "boolean"
+          },
+          "expires_at": {
+            "title": "Expires At",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "points": {
+            "title": "Points",
+            "type": "integer"
+          },
+          "price_version": {
+            "title": "Price Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "points",
+          "price_version",
+          "expires_at",
+          "development_only"
+        ],
+        "title": "Quote",
+        "type": "object"
+      },
+      "QuoteInput": {
+        "additionalProperties": false,
+        "properties": {
+          "aspect_ratio": {
+            "default": "9:16",
+            "enum": [
+              "16:9",
+              "9:16"
+            ],
+            "title": "Aspect Ratio",
+            "type": "string"
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Asset Id"
+          },
+          "cover_ratios": {
+            "items": {
+              "enum": [
+                "16:9",
+                "4:3",
+                "3:4"
+              ],
+              "type": "string"
+            },
+            "maxItems": 3,
+            "minItems": 1,
+            "title": "Cover Ratios",
+            "type": "array"
+          },
+          "cover_style_id": {
+            "anyOf": [
+              {
+                "maxLength": 64,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cover Style Id"
+          },
+          "image_concurrency": {
+            "default": 1,
+            "enum": [
+              1,
+              3,
+              5,
+              "all"
+            ],
+            "title": "Image Concurrency"
+          },
+          "image_model_id": {
+            "maxLength": 100,
+            "title": "Image Model Id",
+            "type": "string"
+          },
+          "input_type": {
+            "default": "script",
+            "enum": [
+              "script",
+              "audio"
+            ],
+            "title": "Input Type",
+            "type": "string"
+          },
+          "mode": {
+            "default": "single",
+            "enum": [
+              "single",
+              "dialogue"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "production": {
+            "$ref": "#/components/schemas/ProductionInput"
+          },
+          "requirements": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Requirements",
+            "type": "string"
+          },
+          "scene_density": {
+            "default": "balanced",
+            "enum": [
+              "economy",
+              "balanced",
+              "rich",
+              "sentence"
+            ],
+            "title": "Scene Density",
+            "type": "string"
+          },
+          "scene_strategy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SceneStrategyInput"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "scene_style_id": {
+            "anyOf": [
+              {
+                "maxLength": 64,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scene Style Id"
+          },
+          "script_id": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Script Id"
+          },
+          "script_mode": {
+            "default": "ai",
+            "enum": [
+              "original",
+              "ai"
+            ],
+            "title": "Script Mode",
+            "type": "string"
+          },
+          "script_revision": {
+            "anyOf": [
+              {
+                "maximum": 2147483647.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Script Revision"
+          },
+          "style_id": {
+            "default": "clean",
+            "maxLength": 64,
+            "title": "Style Id",
+            "type": "string"
+          },
+          "text": {
+            "default": "",
+            "maxLength": 10000,
+            "title": "Text",
+            "type": "string"
+          },
+          "title": {
+            "default": "",
+            "maxLength": 60,
+            "title": "Title",
+            "type": "string"
+          },
+          "voice_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 2,
+            "title": "Voice Ids",
+            "type": "array"
+          },
+          "web_search": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WebSearchInput"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "writing_requirements": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Writing Requirements",
+            "type": "string"
+          }
+        },
+        "title": "QuoteInput",
+        "type": "object"
+      },
+      "SceneEdit": {
+        "additionalProperties": false,
+        "properties": {
+          "prompt": {
+            "maxLength": 20000,
+            "minLength": 1,
+            "title": "Prompt",
+            "type": "string"
+          },
+          "scene_index": {
+            "maximum": 60.0,
+            "minimum": 1.0,
+            "title": "Scene Index",
+            "type": "integer"
+          },
+          "visual_summary": {
+            "anyOf": [
+              {
+                "maxLength": 400,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Visual Summary"
+          }
+        },
+        "required": [
+          "scene_index",
+          "prompt"
+        ],
+        "title": "SceneEdit",
+        "type": "object"
+      },
+      "SceneStrategyInput": {
+        "additionalProperties": false,
+        "properties": {
+          "max": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "default": 20,
+            "title": "Max"
+          },
+          "min": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "default": 12,
+            "title": "Min"
+          },
+          "mode": {
+            "default": "auto",
+            "enum": [
+              "auto",
+              "seconds",
+              "sentences"
+            ],
+            "title": "Mode",
+            "type": "string"
+          }
+        },
+        "title": "SceneStrategyInput",
+        "type": "object"
+      },
+      "ScriptEditInput": {
+        "additionalProperties": false,
+        "properties": {
+          "cover_prompts": {
+            "items": {
+              "$ref": "#/components/schemas/CoverEdit"
+            },
+            "maxItems": 3,
+            "title": "Cover Prompts",
+            "type": "array"
+          },
+          "expected_revision": {
+            "maximum": 2147483646.0,
+            "minimum": 1.0,
+            "title": "Expected Revision",
+            "type": "integer"
+          },
+          "scene_prompts": {
+            "items": {
+              "$ref": "#/components/schemas/SceneEdit"
+            },
+            "maxItems": 60,
+            "title": "Scene Prompts",
+            "type": "array"
+          },
+          "text": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 60,
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expected_revision",
+          "title",
+          "text",
+          "scene_prompts",
+          "cover_prompts"
+        ],
+        "title": "ScriptEditInput",
+        "type": "object"
+      },
+      "ScriptEstimateInput": {
+        "additionalProperties": false,
+        "properties": {
+          "input": {
+            "$ref": "#/components/schemas/QuoteInput"
+          }
+        },
+        "required": [
+          "input"
+        ],
+        "title": "ScriptEstimateInput",
+        "type": "object"
+      },
+      "ScriptInput": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_points": {
+            "maximum": 100000.0,
+            "minimum": 0.0,
+            "title": "Expected Points",
+            "type": "integer"
+          },
+          "input": {
+            "$ref": "#/components/schemas/QuoteInput"
+          },
+          "price_version": {
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Price Version",
+            "type": "string"
+          },
+          "writing_template_version": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Writing Template Version"
+          }
+        },
+        "required": [
+          "input",
+          "expected_points",
+          "price_version"
+        ],
+        "title": "ScriptInput",
+        "type": "object"
+      },
+      "ScriptResult": {
+        "additionalProperties": true,
+        "properties": {
+          "cover_prompts": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Cover Prompts",
+            "type": "array"
+          },
+          "revision": {
+            "default": 1,
+            "minimum": 1,
+            "title": "Revision",
+            "type": "integer"
+          },
+          "scene_prompts": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Scene Prompts",
+            "type": "array"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "text",
+          "scene_prompts",
+          "cover_prompts"
+        ],
+        "title": "ScriptResult",
+        "type": "object"
+      },
+      "ScriptTask": {
+        "additionalProperties": true,
+        "properties": {
+          "charged_points": {
+            "title": "Charged Points",
+            "type": "integer"
+          },
+          "created": {
+            "title": "Created",
+            "type": "number"
+          },
+          "development_only": {
+            "title": "Development Only",
+            "type": "boolean"
+          },
+          "error_code": {
+            "title": "Error Code",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "points": {
+            "title": "Points",
+            "type": "integer"
+          },
+          "refunded_points": {
+            "title": "Refunded Points",
+            "type": "integer"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScriptResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "completed",
+              "recovery_required",
+              "failed",
+              "cancelled",
+              "expired",
+              "simulated"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "updated": {
+            "title": "Updated",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "created",
+          "updated",
+          "points",
+          "charged_points",
+          "refunded_points",
+          "development_only",
+          "error_code",
+          "message",
+          "result"
+        ],
+        "title": "ScriptTask",
+        "type": "object"
+      },
+      "SubmitInput": {
+        "additionalProperties": false,
+        "properties": {
+          "quote_id": {
+            "pattern": "^[a-f0-9]{32}$",
+            "title": "Quote Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "quote_id"
+        ],
+        "title": "SubmitInput",
+        "type": "object"
+      },
+      "TaskList": {
+        "additionalProperties": true,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/VideoTask"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "title": "TaskList",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "VideoResult": {
+        "additionalProperties": true,
+        "properties": {
+          "artifacts": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/Artifact"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Artifacts"
+          },
+          "charged_points": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Charged Points"
+          },
+          "funding_required": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FundingRequired"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "refunded_points": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Refunded Points"
+          }
+        },
+        "title": "VideoResult",
+        "type": "object"
+      },
+      "VideoTask": {
+        "additionalProperties": true,
+        "properties": {
+          "charged_points": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Charged Points"
+          },
+          "created": {
+            "title": "Created",
+            "type": "number"
+          },
+          "development_only": {
+            "title": "Development Only",
+            "type": "boolean"
+          },
+          "error_code": {
+            "title": "Error Code",
+            "type": "string"
+          },
+          "estimated_points": {
+            "title": "Estimated Points",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "points": {
+            "title": "Points",
+            "type": "integer"
+          },
+          "refunded_points": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Refunded Points"
+          },
+          "result": {
+            "$ref": "#/components/schemas/VideoResult"
+          },
+          "status": {
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "completed",
+              "recovery_required",
+              "failed",
+              "cancelled",
+              "expired",
+              "simulated"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "updated": {
+            "title": "Updated",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "created",
+          "updated",
+          "points",
+          "estimated_points",
+          "charged_points",
+          "refunded_points",
+          "development_only",
+          "error_code",
+          "message",
+          "result"
+        ],
+        "title": "VideoTask",
+        "type": "object"
+      },
+      "Wallet": {
+        "additionalProperties": true,
+        "properties": {
+          "available_points": {
+            "minimum": 0,
+            "title": "Available Points",
+            "type": "integer"
+          },
+          "frozen_points": {
+            "minimum": 0,
+            "title": "Frozen Points",
+            "type": "integer"
+          },
+          "organization_id": {
+            "title": "Organization Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "organization_id",
+          "available_points",
+          "frozen_points"
+        ],
+        "title": "Wallet",
+        "type": "object"
+      },
+      "WebSearchInput": {
+        "additionalProperties": false,
+        "properties": {
+          "enabled": {
+            "default": true,
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "max_results": {
+            "default": 40,
+            "title": "Max Results",
+            "type": "integer"
+          }
+        },
+        "title": "WebSearchInput",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "InstitutionKey": {
+        "description": "使用已开通机构的密钥，仅由接入方服务器持有。",
+        "in": "header",
+        "name": "X-API-Key",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "description": "SSO partner-code-v1 与机构服务端 API；具体流程参见接入说明。",
+    "title": "Studio SSO and Institution API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/integrations/{code}/sso/callback": {
+      "get": {
+        "operationId": "callback_api_integrations__code__sso_callback_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "title": "Code",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "state",
+            "required": true,
+            "schema": {
+              "title": "State",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "auth_code",
+            "required": true,
+            "schema": {
+              "title": "Auth Code",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "按 SSO 协议跳转",
+            "headers": {
+              "Location": {
+                "description": "下一步浏览器跳转地址",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "summary": "Callback",
+        "tags": [
+          "partner-sso"
+        ]
+      }
+    },
+    "/api/integrations/{code}/sso/start": {
+      "get": {
+        "operationId": "start_api_integrations__code__sso_start_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "title": "Code",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "origin",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Origin"
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "按 SSO 协议跳转",
+            "headers": {
+              "Location": {
+                "description": "下一步浏览器跳转地址",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "summary": "Start",
+        "tags": [
+          "partner-sso"
+        ]
+      }
+    },
+    "/api/partner/v1/assets/{asset_id}/access": {
+      "post": {
+        "operationId": "asset_access_api_partner_v1_assets__asset_id__access_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "asset_id",
+            "required": true,
+            "schema": {
+              "title": "Asset Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Download"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Asset Access",
+        "tags": [
+          "partner-video"
+        ]
+      }
+    },
+    "/api/partner/v1/catalog": {
+      "get": {
+        "operationId": "catalog_api_partner_v1_catalog_get",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Catalog"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Catalog",
+        "tags": [
+          "partner-video"
+        ]
+      }
+    },
+    "/api/partner/v1/ledger": {
+      "get": {
+        "operationId": "ledger_api_partner_v1_ledger_get",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ledger"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Ledger",
+        "tags": [
+          "partner-video"
+        ]
+      }
+    },
+    "/api/partner/v1/quotes": {
+      "post": {
+        "operationId": "quote_api_partner_v1_quotes_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuoteInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quote"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Quote",
+        "tags": [
+          "partner-video"
+        ]
+      }
+    },
+    "/api/partner/v1/scripts": {
+      "post": {
+        "operationId": "create_script_api_partner_v1_scripts_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9_-]+$",
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScriptInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScriptTask"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Create Script",
+        "tags": [
+          "partner-video"
+        ]
+      }
+    },
+    "/api/partner/v1/scripts/estimate": {
+      "post": {
+        "operationId": "estimate_api_partner_v1_scripts_estimate_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScriptEstimateInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Estimate"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Estimate",
+        "tags": [
+          "partner-video"
+        ]
+      }
+    },
+    "/api/partner/v1/scripts/{script_id}": {
+      "get": {
+        "operationId": "script_api_partner_v1_scripts__script_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "script_id",
+            "required": true,
+            "schema": {
+              "title": "Script Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScriptTask"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Script",
+        "tags": [
+          "partner-video"
+        ]
+      },
+      "put": {
+        "operationId": "edit_api_partner_v1_scripts__script_id__put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "script_id",
+            "required": true,
+            "schema": {
+              "title": "Script Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScriptEditInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScriptTask"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Edit",
+        "tags": [
+          "partner-video"
+        ]
+      }
+    },
+    "/api/partner/v1/tasks": {
+      "get": {
+        "operationId": "tasks_api_partner_v1_tasks_get",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskList"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Tasks",
+        "tags": [
+          "partner-video"
+        ]
+      },
+      "post": {
+        "operationId": "submit_api_partner_v1_tasks_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9_-]+$",
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VideoTask"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Submit",
+        "tags": [
+          "partner-video"
+        ]
+      }
+    },
+    "/api/partner/v1/tasks/{task_id}": {
+      "get": {
+        "operationId": "task_api_partner_v1_tasks__task_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "task_id",
+            "required": true,
+            "schema": {
+              "title": "Task Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VideoTask"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Task",
+        "tags": [
+          "partner-video"
+        ]
+      }
+    },
+    "/api/partner/v1/tasks/{task_id}/cancel": {
+      "post": {
+        "operationId": "cancel_api_partner_v1_tasks__task_id__cancel_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "task_id",
+            "required": true,
+            "schema": {
+              "title": "Task Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VideoTask"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Cancel",
+        "tags": [
+          "partner-video"
+        ]
+      }
+    },
+    "/api/partner/v1/wallet": {
+      "get": {
+        "operationId": "balance_api_partner_v1_wallet_get",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-external-user-id",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "X-External-User-Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Wallet"
+                }
+              }
+            },
+            "description": "成功，直接返回 JSON 对象"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "错误；根据 detail.code 或字段校验数组处理"
+          }
+        },
+        "security": [
+          {
+            "InstitutionKey": []
+          }
+        ],
+        "summary": "Balance",
+        "tags": [
+          "partner-video"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://avm.brightguo.com"
+    }
+  ],
+  "x-sso-protocol": "partner-code-v1"
+}
