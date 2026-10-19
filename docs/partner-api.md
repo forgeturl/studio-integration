@@ -175,6 +175,8 @@ curl --fail-with-body -sS "${AUTH[@]}" -X POST \
 
 下载链接是短期授权，应仅交给有权查看该作品的用户。链接失效而文件仍在保留期时重新申请；以任务、文件及下载响应中的 `expires_at` 为准。
 
+服务端开启 OSS 中转时，历史文件也可返回本站相对路径，经原授权交付；调用方无需访问 OSS 白名单或取得 OSS 凭据。继续按原样使用 `url`，支持 HEAD 和单区间 Range；中转不延长文件或下载链接的有效期。
+
 ## 四、人工修改脚本
 
 对已完成脚本调用 `PUT /scripts/{script_id}`，请求体必须包含全部下列字段：
@@ -197,10 +199,12 @@ curl --fail-with-body -sS "${AUTH[@]}" -X POST \
 | `running` | 正在执行或等待必要条件，继续查询并展示提示 |
 | `succeeded` | 阶段完成；脚本可审阅，视频可申请文件下载 |
 | `recovery_required` | 执行或结算需要处理，保留原任务；有 `funding_required` 时补足额度，否则联系 Studio 核查 |
-| `failed` | 本次失败，展示错误；确认需要重新执行后，按新业务重新发起 |
+| `failed` | 展示错误；`composition_*` 失败按下述原任务继续规则处理，其余失败确认后可按新业务重新发起 |
 | `cancelled` | 已取消，不再等待交付 |
 | `expired` | 任务或内容已过期，展示过期状态 |
 | `simulated` | 仅演示完成，不提供真实视频交付 |
+
+0.2.0 待上线合成行为（仅服务端显式启用后生效）：领取后 5 分钟无进展或 1 小时未完成会返回 `composition_heartbeat_expired` / `composition_deadline_exceeded`；执行失败为 `composition_worker_failed`，结果核验失败为 `composition_validation_failed`。这些失败保留素材与未结算预占 7 天，联系 Studio 在原任务继续并持续查询，不直接换业务单号重复购买。原尝试的迟到成功可能使 `failed` 恢复为 `running` / `succeeded`；显式重试后旧尝试不能覆盖新结果。保留期结束，未结算预占退回，错误为 `composition_materials_expired`。输入、鉴权与幂等约定不变。
 
 同一机构、同一阶段的业务单号用于去重；脚本阶段与视频阶段可以使用同一个单号。相同单号重试必须携带原用户、原请求体和原提交凭据。修改参数或更换操作者时不能复用原单号。
 
