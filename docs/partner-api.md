@@ -96,6 +96,8 @@ curl --fail-with-body -sS "${AUTH[@]}" -H 'Content-Type: application/json' \
 
 预估结果中的 `estimated_points`、`max_points`、`price_version` 和 `writing_template_version` 用于本次提交。提交时 `expected_points` 原样使用 `max_points`，版本字段也原样回传，不自行计算或填写固定值。
 
+0.2.4 待上线规则：新脚本固定预占 50 点，个人与机构相同，机构倍率只作用于预计费用和实际结算；开发演示仍为 0 点。`estimated_points` 表示预计实际费用，`max_points` 表示本次确认的预占额度，接入方继续原样回传。费用按保存的费率和真实用量计算，成功后退回未用额度；若实际费用超过 50 点，原任务进入 `recovery_required`，错误为 `script_budget_exceeded`，保留原预占等待核对，不自动追加扣款。已受理任务保持原预占、费率和幂等请求；未提交的旧报价遇到 `script_price_changed` 时重新获取并确认，不硬编码 50。
+
 ### 3. 创建脚本任务并轮询
 
 ```bash

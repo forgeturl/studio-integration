@@ -1207,7 +1207,7 @@
   "info": {
     "description": "SSO partner-code-v1 与机构服务端 API；具体流程参见接入说明。",
     "title": "Studio SSO and Institution API",
-    "version": "0.2.3"
+    "version": "0.2.4"
   },
   "openapi": "3.1.0",
   "paths": {
