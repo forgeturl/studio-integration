@@ -772,6 +772,18 @@
         "properties": {
           "input": {
             "$ref": "#/components/schemas/QuoteInput"
+          },
+          "reuse_script_id": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reuse Script Id"
           }
         },
         "required": [
@@ -793,10 +805,22 @@
             "$ref": "#/components/schemas/QuoteInput"
           },
           "price_version": {
-            "maxLength": 64,
+            "maxLength": 128,
             "minLength": 1,
             "title": "Price Version",
             "type": "string"
+          },
+          "reuse_script_id": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reuse Script Id"
           },
           "writing_template_version": {
             "anyOf": [
@@ -920,6 +944,18 @@
                 "type": "null"
               }
             ]
+          },
+          "reuse_script_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Reuse Script Id"
           },
           "status": {
             "enum": [
@@ -1235,7 +1271,7 @@
   "info": {
     "description": "SSO partner-code-v1 与机构服务端 API；具体流程参见接入说明。",
     "title": "Studio SSO and Institution API",
-    "version": "0.4.0"
+    "version": "0.5.1"
   },
   "openapi": "3.1.0",
   "paths": {
