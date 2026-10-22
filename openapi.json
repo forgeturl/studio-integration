@@ -73,6 +73,17 @@
             },
             "title": "Voices",
             "type": "array"
+          },
+          "writing_templates": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WritingTemplates"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
           }
         },
         "required": [
@@ -226,6 +237,17 @@
             "default": null,
             "description": "联网预估，含搜索与可选max_fetch_calls网页读取额度；小计已包含在总预估中",
             "title": "Web Search"
+          },
+          "writing_template": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WritingTemplateInfo"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
           },
           "writing_template_version": {
             "anyOf": [
@@ -975,6 +997,17 @@
           "updated": {
             "title": "Updated",
             "type": "number"
+          },
+          "writing_template": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WritingTemplateInfo"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
           }
         },
         "required": [
@@ -1175,6 +1208,21 @@
             ],
             "title": "Refunded Points"
           },
+          "regeneration_confirmation": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Regeneration Confirmation"
+          },
           "result": {
             "$ref": "#/components/schemas/VideoResult"
           },
@@ -1250,12 +1298,108 @@
             "type": "boolean"
           },
           "max_results": {
-            "default": 40,
+            "default": 60,
             "title": "Max Results",
             "type": "integer"
           }
         },
         "title": "WebSearchInput",
+        "type": "object"
+      },
+      "WritingTemplateInfo": {
+        "additionalProperties": true,
+        "properties": {
+          "kind": {
+            "enum": [
+              "generic",
+              "custom"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "mode": {
+            "enum": [
+              "single",
+              "dialogue"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "revision": {
+            "title": "Revision",
+            "type": "integer"
+          },
+          "scope": {
+            "anyOf": [
+              {
+                "const": "organization",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Scope"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "mode",
+          "name",
+          "revision",
+          "version"
+        ],
+        "title": "WritingTemplateInfo",
+        "type": "object"
+      },
+      "WritingTemplates": {
+        "additionalProperties": true,
+        "properties": {
+          "available": {
+            "title": "Available",
+            "type": "boolean"
+          },
+          "dialogue": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WritingTemplateInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "single": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WritingTemplateInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "available",
+          "single",
+          "dialogue",
+          "note"
+        ],
+        "title": "WritingTemplates",
         "type": "object"
       }
     },
@@ -1271,7 +1415,7 @@
   "info": {
     "description": "SSO partner-code-v1 与机构服务端 API；具体流程参见接入说明。",
     "title": "Studio SSO and Institution API",
-    "version": "0.5.1"
+    "version": "0.6.0"
   },
   "openapi": "3.1.0",
   "paths": {

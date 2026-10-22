@@ -6,7 +6,7 @@
   "aspect_ratio": "9:16",
   "style_id": "clean",
   "voice_ids": ["<可用音色ID>"],
-  "web_search": {"enabled": false},
+  "web_search": {"enabled": false, "max_results": 60},
   "scene_strategy": {"mode": "auto", "min": 12, "max": 20},
   "cover_ratios": ["16:9"]
 }

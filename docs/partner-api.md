@@ -30,6 +30,14 @@ Content-Type: application/json
 
 ## 二、接口一览
 
+### 机构写作模板（0.3.0，Unreleased）
+
+管理员可分别配置单人讲述和双人对话模板。在当前机构空间内，按「已开通的机构模板 → 该用户个人模板 → 通用模板」选择；该机构所有有效成员及后续新加入的成员自动继承，无需逐人开通。个人空间不使用机构模板，多个机构之间互不继承。成员或机构停用后不能继续使用该机构能力。
+
+`GET /catalog` 的 `writing_templates.single/dialogue`、脚本估算的 `writing_template` 和脚本任务的 `writing_template` 只返回名称、模式、版本等元数据。机构模板保持 `kind=custom`，另有可选 `scope=organization`；不返回模板提示词、购买/交付记录或其他机构数据。
+
+仅 AI 写稿应用模板，已有文案和录音流程不变。估算后继续原样提交 `writing_template_version`；模板更新或停用导致版本不符时返回 `writing_template_changed`，应重新估算并由用户确认。已受理任务继续使用受理时的模板快照，同幂等键重放返回原任务。启用机构模板前须完成业务 MySQL 迁移 `022_organization_writing_templates` 并部署服务，模板默认关闭。
+
 以下路径均相对于正式环境基址。
 
 | 方法 | 路径 | 用途 |
@@ -82,7 +90,7 @@ curl --fail-with-body -sS "${AUTH[@]}" "$API/catalog" > catalog.json
   "aspect_ratio": "9:16",
   "style_id": "clean",
   "voice_ids": ["<可用音色ID>"],
-  "web_search": {"enabled": false},
+  "web_search": {"enabled": false, "max_results": 60},
   "scene_strategy": {"mode": "auto", "min": 12, "max": 20},
   "cover_ratios": ["16:9"]
 }
@@ -93,6 +101,8 @@ jq '{input: .}' input.json > estimate-request.json
 curl --fail-with-body -sS "${AUTH[@]}" -H 'Content-Type: application/json' \
   --data-binary @estimate-request.json "$API/scripts/estimate" > estimate.json
 ```
+
+0.4.1 待上线规则：联网参考数量默认从 40 条调整为 60 条。启用时传 `"web_search": {"enabled": true, "max_results": 60}`；已传 `web_search` 但省略数量时采用 60 条。整项省略仍保持旧接口不联网行为，显式数量及已提交任务保持原值。数量是上限，实际可能较少；需要维持 40 条的接入方请显式传 `max_results: 40`。
 
 预估结果中的 `estimated_points`、`max_points`、`price_version` 和 `writing_template_version` 用于本次提交。提交时 `expected_points` 原样使用 `max_points`，版本字段也原样回传，不自行计算或填写固定值。
 
@@ -259,6 +269,17 @@ HUI 标准生图使用异步请求保留原任务号；旧的封面画幅不符�
 - 不同用户与不同机构的脚本、任务及文件无法交叉访问。
 - 脚本修改后的版本冲突、过期提交凭据与下载链接失效均有正确提示。
 - 余额或额度不足时保留原任务，处理后可继续完成交付。
+
+## 图片结果未知时的人工确认（0.6.0，Unreleased）
+
+任务响应可附带 `regeneration_confirmation`，供 Studio 网页及网站管理后台在本地执行器已停止、素材检查点有效时展示「已核对，重新生成」。机构 API 本轮无新增重生成操作，接入方可以忽略此可选元数据，不应自行用新幂等键重提整支视频。
+
+原「继续制作」优先恢复原请求，不授权重新购买结果未知的图片。用户核对原服务商任务及计费，并确认可能再次计费后，网页携带当前恢复版本提交确认；旧确认重放不会再次重生成。Worker 先持久化归档原始请求及来源哈希，再处理未获任何结果的图片请求。已有图片或任务号仍优先恢复原结果，配音、字幕和完成图片不重新生成。后续仍使用原兜底顺序与价格确认；重生成可能再次遇到 503，不保证备用线路必定成功。
+
+同次请求不能同时授权重新生成和换备用线路。已经授权备用线路的任务不再提供重新生成入口，备用线路结果未知时继续保留原请求核对，不能通过另一入口绕过一次替换限制。
+
+新生成采用不同的成本请求 ID，计入 AI 日预算；不创建新视频任务，不直接追加钱包扣款，最终交付按原任务计价规则结算。原服务商的未知费用不能擅自判定为已消费。归档保存在原任务目录的 `image-regeneration-history`，作为对账证据保留，不随单次执行目录清理删除。本轮无需数据库迁移，须同步部署 API、Worker、引擎和前端；不会自动恢复或重试历史任务。
+
 
 ### 参考资料重写（0.5.0，Unreleased）
 
