@@ -213,6 +213,20 @@
             "title": "Price Version",
             "type": "string"
           },
+          "web_search": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "联网预估，含搜索与可选max_fetch_calls网页读取额度；小计已包含在总预估中",
+            "title": "Web Search"
+          },
           "writing_template_version": {
             "anyOf": [
               {
@@ -816,6 +830,20 @@
             "title": "Cover Prompts",
             "type": "array"
           },
+          "research": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "联网来源；adaptive-v1含fetch_calls、rounds、read_failures、limitations及来源read_status，均须保留原始来源事实边界",
+            "title": "Research"
+          },
           "revision": {
             "default": 1,
             "minimum": 1,
@@ -1207,7 +1235,7 @@
   "info": {
     "description": "SSO partner-code-v1 与机构服务端 API；具体流程参见接入说明。",
     "title": "Studio SSO and Institution API",
-    "version": "0.3.0"
+    "version": "0.4.0"
   },
   "openapi": "3.1.0",
   "paths": {
