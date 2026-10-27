@@ -1,8 +1,8 @@
 {
   "bundle_sha256": "9db004cb3037970805ba07936856b6040030472f1cea0918438c3d9b9246d72f",
   "contract_sha256": "d2bebb34d178b9df06979270a2c099980e5c698d18eaeddc1040d01f6f511d9e",
-  "run_url": "https://github.com/forgeturl/avm-website/actions/runs/40368730428",
-  "source_commit": "b1e9d4b1e1dcc67340ae958c43a91ff4208be493",
+  "run_url": "https://github.com/forgeturl/avm-website/actions/runs/40443262544",
+  "source_commit": "7f796d47afc96c76c6daf5791369d73528d25261",
   "status": "success",
   "version": "0.6.1"
 }
