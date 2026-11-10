@@ -87,6 +87,10 @@ curl --fail-with-body -sS "${AUTH[@]}" "$API/catalog" > catalog.json
 
 检查 `enabled`、`available`、`script_generation.available` 及相关配置项的 `available`。音色、模型及风格 ID 从返回的可用列表选择；输入长度、时长及选项范围遵循返回限制。
 
+0.11.0增加可选`speech_models`。原`voices`保留豆包；`speech_models`中的百炼`qwen-audio-3.1-tts-flash`提供139个系统音色。继续将原始音色ID放在`voice_ids`，例如单人`["longnan_v3.1"]`、双人`["longnan_v3.1","longanhuan_v3.1"]`；同一音轨不能混用两家服务。读取所选模型`limits`：百炼最长3600秒、最多128段，不沿用顶层豆包的5400秒。目录的免费试听URL使用Studio登录会话，不能附加机构Key或将其放入查询字符串。
+
+百炼配音基础价每分钟¥0.02（2真气），按整条交付音轨的解码样本数计时，最低1分钟，之后30秒四舍五入：45秒/75秒均2真气，90秒4真气；分段和双人角色不分别收最低费用。报价的`speech_pricing.provider=bailian`及`pricing`说明规则，预估不等于最终时长。视频制作、生图仍按原规则另计，机构计价系数仍作用于总价。内部配音子任务只记录采购与时长，钱包由原视频任务一次结算，继续查询原任务即可。
+
 ### 2. 准备输入并获取脚本预估
 
 建立 `input.json`，将音色占位符替换为 `/catalog` 返回的可用音色 ID：
