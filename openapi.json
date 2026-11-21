@@ -745,6 +745,20 @@
             ],
             "title": "Script Revision"
           },
+          "speech_instruction": {
+            "default": "",
+            "maxLength": 500,
+            "title": "Speech Instruction",
+            "type": "string"
+          },
+          "speech_rate": {
+            "default": 1.0,
+            "maximum": 2.0,
+            "minimum": 0.5,
+            "multipleOf": 0.01,
+            "title": "Speech Rate",
+            "type": "number"
+          },
           "style_id": {
             "default": "clean",
             "maxLength": 64,
@@ -1649,7 +1663,7 @@
   "info": {
     "description": "SSO partner-code-v1 与机构服务端 API；具体流程参见接入说明。",
     "title": "Studio SSO and Institution API",
-    "version": "0.13.4"
+    "version": "0.14.1"
   },
   "openapi": "3.1.0",
   "paths": {

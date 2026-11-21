@@ -25,6 +25,17 @@ script = client.request("POST", "/scripts", {
 
 `request()` 仅用于机构 API 路径，禁止用它请求下载 URL。下载时将返回的相对路径按正式站点补全，使用独立、不携带机构密钥的 HTTP 请求。
 
+## 为确认的台词设置配音（0.14.0，待上线）
+
+选择目录中支持语气指令的音色，取得已完成的脚本 ID 后，可使用同一份原始输入获取新报价。
+
+```python
+quote = client.request("POST", "/quotes", {
+    **original_input, "script_id": script["id"], "speech_rate": 1.1,
+    "speech_instruction": "开场轻松，报数字时稍慢，结尾用邀请的口吻。",
+})
+```
+
 ## 用现有参考重写（0.5.0，未部署前不可使用）
 
 在估算请求的顶层增加 `reuse_script_id`，`input` 为本次写作要求；例如：
